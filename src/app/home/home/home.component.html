@@ -1,0 +1,66 @@
+<div class="home-container">
+    
+    <div class="profile-section">
+      <img [src]="user.photoUrl" alt="User Photo" class="user-photo"/>
+      <h2>{{ user.name }}</h2>
+      <p>{{ user.email }}</p>
+      <button (click)="navigateToSettings()" class="btn btn-secondary">Settings</button>
+      <button (click)="logout()" class="btn btn-secondary">Logout</button>
+    </div>
+  
+   
+    <div class="network-section">
+      <h3>Network</h3>
+      <button (click)="manageNetwork()" class="btn btn-secondary">Manage Network</button>
+    </div>
+  
+    <div class="connections-section">
+      <h3>Your Connections</h3>
+      <ul>
+        <li *ngFor="let connection of connections">{{ connection.name }}</li>
+      </ul>
+    </div>
+  
+    
+    <div class="post-form">
+      <h3>Write a New Post</h3>
+      <form (ngSubmit)="onSubmitPost()" #postForm="ngForm">
+        <div class="form-group">
+          <label for="postContent">Post Content:</label>
+          <textarea 
+            id="postContent" 
+            name="postContent" 
+            [(ngModel)]="newPost.content" 
+            required
+            #postContentInput="ngModel"
+            class="form-control"
+          ></textarea>
+          <div *ngIf="postContentInput.invalid && postContentInput.touched" class="error">
+            Post content is required.
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="imageUpload">Upload Image:</label>
+          <input 
+            type="file" 
+            id="imageUpload" 
+            (change)="onImageUpload($event)"
+            class="form-control"
+          />
+        </div>
+  
+        <button type="submit" [disabled]="postForm.invalid" class="btn btn-primary">Submit Post</button>
+      </form>
+    </div>
+    
+    
+    <div class="posts-list">
+      <h3>All Posts</h3>
+      <div *ngFor="let post of posts" class="post-item">
+        <p>{{ post.content }}</p>
+        <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
+      </div>
+    </div>
+  </div>
+  

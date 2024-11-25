@@ -1,0 +1,28 @@
+<div class="network-container">
+    <h2>Registered Users</h2>
+    
+    <div *ngFor="let user of users" class="user-card">
+      <img [src]="user.photoUrl" alt="{{ user.name }}" class="user-photo"/>
+      <h3>{{ user.name }}</h3>
+      <p>{{ user.email }}</p>
+      <button 
+        *ngIf="!user.isFriend && !user.requestSent" 
+        (click)="sendFriendRequest(user)" 
+        class="btn btn-primary">
+        Send Friend Request
+      </button>
+      <button 
+        *ngIf="user.requestSent"
+        class="btn btn-secondary" 
+        disabled>
+        Request Sent
+      </button>
+      <button 
+        *ngIf="user.isFriend" 
+        class="btn btn-success" 
+        disabled>
+        Friends
+      </button>
+    </div>
+  </div>
+  
